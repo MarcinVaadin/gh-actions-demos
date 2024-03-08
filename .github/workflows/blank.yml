@@ -25,7 +25,7 @@ jobs:
   # can be skipped when we want only to update formatter
   build:
     needs: check_skip_flags
-    if: "!contains($HEAD_COMMIT_MSG, '[formatter]')"
+    if: "!contains(${{ env.HEAD_COMMIT_MSG }}, '[formatter]')"
     runs-on: ubuntu-latest
     steps:
       - name: Build
