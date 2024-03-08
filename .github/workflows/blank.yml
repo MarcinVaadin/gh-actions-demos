@@ -19,13 +19,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Set env.HEAD_COMMIT_MSG
-        run: echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_ENV
+      - name: Set HEAD_COMMIT_MSG
+        id: check-flags
+        run: echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
 
   # can be skipped when we want only to update formatter
   build:
     needs: check_skip_flags
-    if: env.HEAD_COMMIT_MSG != '[formatter]'
+    if: ${{ !contains(steps.check-flags.outputs.HEAD_COMMIT_MSG, '[formatter]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Build
