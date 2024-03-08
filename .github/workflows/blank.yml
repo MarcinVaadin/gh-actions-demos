@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build
-        run: echo 'Running build...'
+        run: echo 'Running build ...'
 
 
   # always run formatter check
@@ -40,4 +40,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Formatter
-        run: echo 'Running maven formatter:format...'
+        run: echo 'Running maven formatter:format ...'
