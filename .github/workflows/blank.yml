@@ -1,21 +1,16 @@
-# This is a basic workflow to help you get started with Actions
+# Example of skipping build action based on commit message content
 
-name: CI
+name: Skip formatter
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  
+
+  # from https://github.com/orgs/community/discussions/28474#discussioncomment-3350256
   check_skip_flags:
     name: Check skip flags
     runs-on: ubuntu-latest
@@ -29,27 +24,20 @@ jobs:
       - name: Print head git commit message
         id: get_head_commit_message
         run: echo "::set-output name=headCommitMsg::$(git show -s --format=%s)"
-  
-  # This workflow contains a single job called "build"
+
+  # can be skipped when we want only to update formatter
   build:
-    
     needs: check_skip_flags
-    if: ${{ !contains(needs.check_skip_flags.outputs.head-commit-message, '[formatter]') }}
-    
-    # The type of runner that the job will run on
+    if: ${{ !contains(needs.check_skip_flags.outputs.head-commit-message, '[formatter]') }}   
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Build
+        run: echo 'Running build...'
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+  # always run formatter check
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Formatter
+        run: echo 'Running maven formatter:format...'
