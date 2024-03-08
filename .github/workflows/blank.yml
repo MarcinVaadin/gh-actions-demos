@@ -14,19 +14,21 @@ jobs:
   check_skip_flags:
     name: Check skip flags
     runs-on: ubuntu-latest
+    outputs:
+      head-commit-message: ${{ steps.get_head_commit_message.outputs.headCommitMsg }}
     steps:
       - name: Get repo
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Set HEAD_COMMIT_MSG
-        id: check-flags
-        run: echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "headCommitMsg=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
 
   # can be skipped when we want only to update formatter
   build:
     needs: check_skip_flags
-    if: ${{ !contains(steps.check-flags.outputs.HEAD_COMMIT_MSG, '[formatter]') }}
+    if: ${{ !contains(needs.check_skip_flags.outputs.head-commit-message, '[formatter]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Build
