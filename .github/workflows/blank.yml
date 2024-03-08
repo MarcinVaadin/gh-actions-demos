@@ -23,12 +23,12 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Print head git commit message
         id: get_head_commit_message
-        run: echo "::set-output name=headCommitMsg::$(git show -s --format=%s)"
+        run: echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_ENV
 
   # can be skipped when we want only to update formatter
   build:
     needs: check_skip_flags
-    if: ${{ !contains(needs.check_skip_flags.outputs.head-commit-message, '[formatter]') }}   
+    if: ${{ !contains($HEAD_COMMIT_MSG, '[formatter]') }}   
     runs-on: ubuntu-latest
     steps:
       - name: Build
