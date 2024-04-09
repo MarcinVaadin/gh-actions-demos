@@ -21,6 +21,7 @@ jobs:
       with:
         status: ${{ env.failed > 0 }}
         refresh-message-position: true
+        message: ok?
         message-success: |
           Tests passed.
         message-failure: |
