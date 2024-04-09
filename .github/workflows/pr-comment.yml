@@ -19,7 +19,7 @@ jobs:
       run: echo ${{ env.failed }}
     - uses: mshick/add-pr-comment@v2
       with:
-        status: ${{ env.failed > 0 }}
+        status: ${{ env.failed == 0 }}
         refresh-message-position: true
         message: ok?
         message-success: |
