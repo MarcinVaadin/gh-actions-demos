@@ -14,12 +14,13 @@ jobs:
     - name: Touch file
       run: touch test
     - name: Check empty directory
-      run: echo "failed=`ls | wc -l | bc`" >> $GITHUB_ENV
+      run: |
+        echo "failed=`ls | wc -l | bc`" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.failed }}
     - uses: mshick/add-pr-comment@v2
       with:
-        status: ${{ env.failed == 0 }}
+        status: ${{ (env.failed == 0 && 'success') || (env.failed > 0 && 'failure') }}
         refresh-message-position: true
         message: ok?
         message-success: |
