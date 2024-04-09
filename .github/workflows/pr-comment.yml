@@ -1,0 +1,19 @@
+name: Add PR comment
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  comment:
+    name: Check skip flags
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+    - uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          **Hello**
+          🌏
+          !
