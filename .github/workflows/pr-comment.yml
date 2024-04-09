@@ -17,14 +17,12 @@ jobs:
       run: echo "failed=`ls | wc -l | bc`" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.failed }}
-    - if: ${{ env.failed > 0 }}
-      uses: mshick/add-pr-comment@v2
+    - uses: mshick/add-pr-comment@v2
       with:
-        message: |
+        status: ${{ env.failed > 0 }}
+        refresh-message-position: true
+        message-success: |
+          Tests passed.
+        message-failure: |
           Tests failed.
-    - if: ${{ env.failed == 0 }}
-      uses: mshick/add-pr-comment@v2
-      with:
-        message: |
-          Tests OK.
-
+   
