@@ -6,7 +6,7 @@ on:
 
 jobs:
   comment:
-    name: Check skip flags
+    name: Add PR comment
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -14,6 +14,6 @@ jobs:
     - uses: mshick/add-pr-comment@v2
       with:
         message: |
-          **Hello**
+          **Hello (update)**
           🌏
           !
