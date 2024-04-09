@@ -11,9 +11,18 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-    - uses: mshick/add-pr-comment@v2
+    - name: Check empty directory
+      run: echo "failed=`ls | wc -l | bc`" >> $GITHUB_ENV
+    - name: test
+      run: echo ${{ env.failed }}
+    - if: ${{ env.failed > 0 }}
+      uses: mshick/add-pr-comment@v2
       with:
         message: |
-          **Hello (update)**
-          🌏
-          !
+          Tests failed.
+    - if: ${{ env.failed == 0 }}
+      uses: mshick/add-pr-comment@v2
+      with:
+        message: |
+          Tests OK.
+
