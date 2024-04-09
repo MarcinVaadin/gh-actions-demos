@@ -11,6 +11,8 @@ jobs:
     permissions:
       pull-requests: write
     steps:
+    - name: Touch file
+      run: touch test
     - name: Check empty directory
       run: echo "failed=`ls | wc -l | bc`" >> $GITHUB_ENV
     - name: test
