@@ -15,8 +15,8 @@ jobs:
       run: touch screenshot1.png screenshot1.html screenshot2.png screenshot2.html
     - name: Check empty directory
       run: |
-        echo "failed_list=`ls | grep .png`" >> $GITHUB_ENV
-        echo "failed=`ls | grep .png | wc -l | bc`" >> $GITHUB_ENV
+        echo "failed_list=`ls -m *.png`" >> $GITHUB_ENV
+        echo "failed=`ls *.png | wc -l | bc`" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.failed }}
     - uses: mshick/add-pr-comment@v2
