@@ -11,11 +11,12 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-    #- name: Touch file
-    #  run: touch test
-    - name: Check empty directory
+    # - name: Create test files
+    #   run: touch screenshot1.png screenshot1.html screenshot2.png screenshot2.html
+    - name: List files
       run: |
-        echo "failed=`ls | wc -l | bc`" >> $GITHUB_ENV
+        echo "failed_list=`ls -m *.png`" >> $GITHUB_ENV
+        echo "failed=`ls *.png | wc -l | bc`" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.failed }}
     - uses: mshick/add-pr-comment@v2
@@ -23,7 +24,8 @@ jobs:
         status: ${{ (env.failed == 0 && 'success') || (env.failed > 0 && 'failure') }}
         refresh-message-position: true
         message-success: |
-          Tests passed.
+          ### 🟢 Screenshot comparison passed.
         message-failure: |
-          Tests failed.
+          ### 🔴 Screenshots comparison failed for
+          ${{ env.failed_list }}
    
