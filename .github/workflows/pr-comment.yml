@@ -11,8 +11,8 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-    - name: Create test files
-      run: touch screenshot1.png screenshot1.html screenshot2.png screenshot2.html
+    # - name: Create test files
+    #   run: touch screenshot1.png screenshot1.html screenshot2.png screenshot2.html
     - name: List files
       run: |
         echo "failed_list=`ls -m *.png`" >> $GITHUB_ENV
@@ -26,6 +26,6 @@ jobs:
         message-success: |
           ### 🟢 Screenshot comparison passed.
         message-failure: |
-          ### 🔴 Screenshots (${{ env.failed }}) comparison failed for
+          ### 🔴 Screenshots comparison failed for
           ${{ env.failed_list }}
    
