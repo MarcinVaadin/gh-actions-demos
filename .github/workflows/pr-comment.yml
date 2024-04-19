@@ -18,8 +18,8 @@ jobs:
     - name: Check error-screenshots
       run: |
         echo "failed=`ls error-screenshots | grep .html | wc -l | bc`" >> $GITHUB_ENV
-        echo "failed_list=`ls -m error-screenshots/*.html | sed 's/\s+//g' | sed s/.html//g`"
-        echo "failed_list=`ls -m error-screenshots/*.html | sed 's/\s+//g' | sed s/.html//g`" >> $GITHUB_ENV
+        echo "failed_list=`ls -m error-screenshots/*.html | tr -d " \t\n\r" | sed s/.html//g`"
+        echo "failed_list=`ls -m error-screenshots/*.html | tr -d " \t\n\r" | sed s/.html//g`" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.failed }}
     - uses: mshick/add-pr-comment@v2
