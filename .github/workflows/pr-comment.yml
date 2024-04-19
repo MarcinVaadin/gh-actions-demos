@@ -11,12 +11,14 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-    # - name: Create test files
-    #   run: touch screenshot1.png screenshot1.html screenshot2.png screenshot2.html
-    - name: List files
+    - name: Create test files
       run: |
-        echo "failed_list=`ls -m *.png`" >> $GITHUB_ENV
-        echo "failed=`ls *.png | wc -l | bc`" >> $GITHUB_ENV
+        mkdir error-screenshots
+        touch error-screenshots/screenshot_chrome_linux1.png error-screenshots/screenshot_chrome_linux1.png.html error-screenshots/screenshot_chrome_linux2.png error-screenshots/screenshot_chrome_linux2.png.html
+    - name: Check error-screenshots
+      run: |
+        echo "failed=`ls error-screenshots | grep .html | wc -l | bc`" >> $GITHUB_ENV
+        echo "failed_list=`ls -m error-screenshots/*.html | tr -d " \t\n\r" | sed s/.html//g`" >> $GITHUB_ENV
     - name: test
       run: echo ${{ env.failed }}
     - uses: mshick/add-pr-comment@v2
