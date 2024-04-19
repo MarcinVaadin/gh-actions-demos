@@ -14,7 +14,7 @@ jobs:
     - name: Create test files
       run: |
         mkdir error-screenshots
-        touch screenshot_chrome_linux1.png screenshot_chrome_linux1.png.html screenshot_chrome_linux2.png screenshot_chrome_linux2.png.html
+        touch error-screenshots/screenshot_chrome_linux1.png error-screenshots/screenshot_chrome_linux1.png.html error-screenshots/screenshot_chrome_linux2.png error-screenshots/screenshot_chrome_linux2.png.html
     - name: Check error-screenshots
       run: |
         echo "failed=`ls error-screenshots | grep .html | wc -l | bc`" >> $GITHUB_ENV
