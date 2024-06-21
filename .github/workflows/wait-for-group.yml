@@ -1,0 +1,23 @@
+name: Wait for group
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  group:
+    name: Run 5 jobs matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: {test: ['one', 'two', 'three', 'four', 'five']}
+    permissions:
+      pull-requests: write
+
+    steps:
+      - run: echo ${{ matrix.test }}
+
+  wait-for-group:
+    needs: group
+    name: Wait for all actions
+    runs-on: ubuntu-latest
