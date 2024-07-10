@@ -31,7 +31,7 @@ jobs:
           log-output-resume: stderr
           wait-on: watcher-output.txt # Wait until it no longer changes -> it's running
           wait-for: 60s
-          log-output: stderr,stdout
+          log-output: false
           log-output-if: failure
       - name: Test Java compile
         run: |
