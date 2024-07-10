@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK ${inputs.java-version}
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Set up Maven ${inputs.maven-version}
+      - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: '3.9.6'
@@ -30,6 +30,7 @@ jobs:
           wait-on: watcher-output.txt # Wait until it no longer changes -> it's running
           log-output: false
           log-output-if: false
+      - run: mvn -V -B -ntp clean install
       - name: Test Java compile
         run: |
           ls -la --time-style=full-iso src/main/java/org/vaadin/example/Application.java
