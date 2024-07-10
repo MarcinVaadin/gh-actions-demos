@@ -1,0 +1,49 @@
+name: Watch for changes and recompile on change
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  background-watch-and-recompile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK ${inputs.java-version}
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Set up Maven ${inputs.maven-version}
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+      - name: Start Java compile watcher
+        uses: JarvusInnovations/background-action@v1
+        with:
+          run: mvn -V -B -ntp fizzed-watcher:run > watcher-output.txt 2>&1 &
+          tail: true
+          log-output-resume: false
+          wait-on: watcher-output.txt # Wait until it no longer changes -> it's running
+          log-output: false
+          log-output-if: false
+      - name: Test Java compile
+        run: |
+          pushd copilot-client-test-flow
+          ls -la --time-style=full-iso src/main/java/org/vaadin/example/Application.java
+          ls -la --time-style=full-iso target/classes/org/vaadin/example/Application.class
+          sleep 1
+          echo "// Foo" >> src/main/java/org/vaadin/example/Application.java
+          sleep 30
+          ls -la --time-style=full-iso src/org/vaadin/example/Application.java
+          ls -la --time-style=full-iso target/org/vaadin/example/Application.class
+          popd
+          ps axu
