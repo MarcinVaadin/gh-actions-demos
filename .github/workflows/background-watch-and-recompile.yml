@@ -38,6 +38,7 @@ jobs:
           sleep 1
           echo "// Foo" >> src/main/java/org/vaadin/example/Application.java
           sleep 30
-          ls -la --time-style=full-iso src/org/vaadin/example/Application.java
-          ls -la --time-style=full-iso target/org/vaadin/example/Application.class
+          ls -la --time-style=full-iso src/main/java/org/vaadin/example/Application.java
+          ls -la --time-style=full-iso target/classes/org/vaadin/example/Application.class
           ps axu
+      - run: cat watcher-output.txt
