@@ -30,8 +30,10 @@ jobs:
           tail: true
           log-output-resume: stderr
           wait-on: watcher-output.txt # Wait until it no longer changes -> it's running
+          # hint: wait-on file path is relative to current working directory,
+          # not one defined in JarvusInnovations/background-action working-directory
           wait-for: 60s
-          log-output: false
+          log-output: false # do not log output as we are already redirecting stream to watcher-output
           log-output-if: failure
       - name: Test Java compile
         run: |
