@@ -21,16 +21,18 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: '3.9.6'
+      - name: Build project
+        run: mvn -V -B -ntp install
       - name: Start Java compile watcher
         uses: JarvusInnovations/background-action@v1
         with:
           run: mvn -V -B -ntp fizzed-watcher:run > watcher-output.txt 2>&1 &
           tail: true
-          log-output-resume: false
+          log-output-resume: stderr
           wait-on: watcher-output.txt # Wait until it no longer changes -> it's running
-          log-output: false
-          log-output-if: false
-      - run: mvn -V -B -ntp clean install
+          wait-for: 60s
+          log-output: stderr,stdout
+          log-output-if: failure
       - name: Test Java compile
         run: |
           ls -la --time-style=full-iso src/main/java/org/vaadin/example/Application.java
@@ -40,5 +42,4 @@ jobs:
           sleep 30
           ls -la --time-style=full-iso src/main/java/org/vaadin/example/Application.java
           ls -la --time-style=full-iso target/classes/org/vaadin/example/Application.class
-          ps axu
       - run: cat watcher-output.txt
