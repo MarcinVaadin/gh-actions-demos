@@ -32,7 +32,6 @@ jobs:
           log-output-if: false
       - name: Test Java compile
         run: |
-          pushd copilot-client-test-flow
           ls -la --time-style=full-iso src/main/java/org/vaadin/example/Application.java
           ls -la --time-style=full-iso target/classes/org/vaadin/example/Application.class
           sleep 1
@@ -40,5 +39,4 @@ jobs:
           sleep 30
           ls -la --time-style=full-iso src/org/vaadin/example/Application.java
           ls -la --time-style=full-iso target/org/vaadin/example/Application.class
-          popd
           ps axu
