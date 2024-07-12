@@ -17,10 +17,8 @@ jobs:
         run: |
           wget -q https://cache-redirector.jetbrains.com/intellij-jbr/${JBR_VERSION}.tar.gz
           tar -xzf ${JBR_VERSION}.tar.gz
-      - name: Set ENV vars
-        run: |
-          echo "JAVA_HOME=`pwd`/${JBR_VERSION}" >> $GITHUB_ENV
-          echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+      - run: echo "JAVA_HOME=`pwd`/${JBR_VERSION}" >> $GITHUB_ENV
+      - run: echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
       - run: |
           java --version
           javac --version
