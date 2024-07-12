@@ -13,6 +13,18 @@ jobs:
   hotswap:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up JDK ${inputs.java-version}
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+      - uses: actions/checkout@v4
+      - name: Build
+        run: mvn install
       - name: Download and extract JBR
         run: |
           wget -q https://cache-redirector.jetbrains.com/intellij-jbr/${JBR_VERSION}.tar.gz
@@ -25,9 +37,5 @@ jobs:
         run: |
           java --version
           javac --version
-      - uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: '3.9.6'
-      - uses: actions/checkout@v4
-      - name: Build
-        run: mvn install
+      - name: Run using JBR
+        run: mvn spring-boot:run
