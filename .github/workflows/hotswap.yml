@@ -19,4 +19,9 @@ jobs:
           tar -xzf ${JBR_VERSION}.tar.gz
       - name: Set JAVA_HOME
         run: echo "JAVA_HOME=`pwd`/${JBR_VERSION}" >> $GITHUB_ENV
-      - run: echo ${JAVA_HOME}
+      - run: |
+          java --version
+          javac --version
+      - uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
