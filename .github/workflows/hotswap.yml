@@ -1,8 +1,5 @@
 name: Use HotSwap on GH Actions
 
-env:
-  JBR_VERSION: 'jbr_jcef-21.0.3-linux-x64-b509.4'
-
 on:
   push:
     branches: [ "main" ]
@@ -25,14 +22,15 @@ jobs:
           maven-version: '3.9.6'
       - name: Build
         run: mvn install
-      - name: Download and extract JBR
-        run: |
-          wget -q https://cache-redirector.jetbrains.com/intellij-jbr/${JBR_VERSION}.tar.gz
-          tar -xzf ${JBR_VERSION}.tar.gz
-      - name: Set JAVA_HOME
-        run: echo "JAVA_HOME=`pwd`/${JBR_VERSION}" >> $GITHUB_ENV
-      - name: Add JBR to PATH
-        run: echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+      - run: |
+          download_url="https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-21.0.3-linux-x64-b509.4.tar.gz"
+          wget -q -O $RUNNER_TEMP/java_package.tar.gz $download_url
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'jdkfile'
+          jdkFile: ${{ runner.temp }}/java_package.tar.gz
+          java-version: '21.0.3'
+          architecture: x64
       - name: Check Java version
         run: |
           java --version
