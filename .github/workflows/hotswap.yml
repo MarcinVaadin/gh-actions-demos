@@ -21,7 +21,7 @@ jobs:
         with:
           maven-version: '3.9.6'
       - name: Build
-        run: mvn install
+        run: mvn -V -B -ntp install
       - run: |
           download_url="https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-21.0.3-linux-x64-b509.4.tar.gz"
           wget -q -O $RUNNER_TEMP/java_package.tar.gz $download_url
@@ -36,4 +36,4 @@ jobs:
           java --version
           javac --version
       - name: Run using JBR
-        run: mvn spring-boot:run
+        run: mvn -V -B -ntp spring-boot:run
