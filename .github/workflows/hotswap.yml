@@ -13,7 +13,7 @@ jobs:
   hotswap:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK ${inputs.java-version}
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '21'
