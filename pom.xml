@@ -83,6 +83,8 @@
                     <jvmArguments>
                         -Dvaadin.copilot.enable=true
                         -Dvaadin.frontend.hotdeploy=true
+                        -XX:+AllowEnhancedClassRedefinition
+                        -XX:HotswapAgent=fatjar
                     </jvmArguments>
                     <wait>500</wait>
                     <maxAttempts>240</maxAttempts>
