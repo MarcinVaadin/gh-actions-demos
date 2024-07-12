@@ -79,6 +79,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>
+                        -Dvaadin.copilot.enable=true
+                        -Dvaadin.frontend.hotdeploy=true
+                    </jvmArguments>
+                    <wait>500</wait>
+                    <maxAttempts>240</maxAttempts>
+                </configuration>
             </plugin>
 
             <plugin>
