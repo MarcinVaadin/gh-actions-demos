@@ -1,5 +1,8 @@
 name: Use HotSwap on GH Actions
 
+env:
+  MAVEN_OPTS: "-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
+
 on:
   push:
     branches: [ "main" ]
