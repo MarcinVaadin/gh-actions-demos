@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: Download and extract JBR
         run: |
-          wget https://cache-redirector.jetbrains.com/intellij-jbr/${JBR_VERSION}.tar.gz
-          tar -xvzf ${JBR_VERSION}
+          wget -q https://cache-redirector.jetbrains.com/intellij-jbr/${JBR_VERSION}.tar.gz
+          tar -xzf ${JBR_VERSION}.tar.gz
       - name: Set JAVA_HOME
         run: export JAVA_HOME="`pwd`/${JBR_VERSION}"
       - run: echo ${JAVA_HOME}
