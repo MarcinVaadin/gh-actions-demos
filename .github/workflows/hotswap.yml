@@ -32,4 +32,4 @@ jobs:
           java --version
           javac --version
       - name: Run using JBR
-        run: mvn -V -B -ntp package spring-boot:run
+        run: mvn -V -B -ntp -Pit verify
