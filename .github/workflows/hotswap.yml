@@ -1,0 +1,22 @@
+name: Use HotSwap on GH Actions
+
+env:
+  JBR_VERSION: 'jbr_jcef-21.0.3-linux-x64-b509.4'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  hotswap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and extract JBR
+        run: |
+          wget https://cache-redirector.jetbrains.com/intellij-jbr/${JBR_VERSION}.tar.gz
+          tar -xvzf ${JBR_VERSION}
+      - name: Set JAVA_HOME
+        run: export JAVA_HOME="`pwd`/${JBR_VERSION}"
+      - run: echo ${JAVA_HOME}
