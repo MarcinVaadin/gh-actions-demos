@@ -13,6 +13,7 @@ jobs:
   hotswap:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -22,7 +23,6 @@ jobs:
       - uses: stCarolas/setup-maven@v5
         with:
           maven-version: '3.9.6'
-      - uses: actions/checkout@v4
       - name: Build
         run: mvn install
       - name: Download and extract JBR
