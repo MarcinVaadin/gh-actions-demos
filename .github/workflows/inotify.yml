@@ -13,10 +13,17 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get -y install inotify-tools
       - uses: actions/checkout@v4
+      - name: Build
+        run: mvn -ntp -V install
+      - name: Save classpaths
+        run: mvn dependency:build-classpath -Dmdep.outputFile=deps.txt
       - run: |
           chmod +x scripts/watcher.sh
-          ./scripts/watcher.sh src/main/java watcher.log
+          ./scripts/watcher.sh src/main/java watcher.log deps.txt
+          ls -la --time-style=full-iso target/classes/org/vaadin/example/MainView.class
           echo "// test" >> src/main/java/org/vaadin/example/MainView.java
+          sleep 5
+          ls -la --time-style=full-iso target/classes/org/vaadin/example/MainView.class
       - run: |
           cat watcher.log
           kill `cat watcher.pid`
