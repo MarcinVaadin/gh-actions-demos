@@ -12,3 +12,5 @@ jobs:
     steps:
       - run: sudo apt-get update
       - run: sudo apt-get -y install inotify-tools
+      - uses: actions/checkout@v4
+      - run: inotifywatch -v -e modify -t 60 -r src/main/java/*.java
