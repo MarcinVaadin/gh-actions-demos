@@ -7,10 +7,10 @@ on:
     branches: [ "main" ]
 
 jobs:
-  hotswap:
+  inotify:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get update
       - run: sudo apt-get -y install inotify-tools
       - uses: actions/checkout@v4
-      - run: inotifywatch -v -e modify -t 60 -r src/main/java/*.java
+      - run: inotifywatch -v -e modify -t 60 -r src/main/java
