@@ -16,9 +16,7 @@ jobs:
       - name: Start inotify watcher
         uses: JarvusInnovations/background-action@v1
         with:
-          run: |
-            inotifywatch -v -e modify -r src/main/java > watcher-output.txt 2>&1 &
-            echo $! > watcher.pid
+          run: inotifywatch -v -e modify -r src/main/java > watcher-output.txt 2>&1 & && echo $! > watcher.pid
           wait-on: watcher-output.txt # Wait until it no longer changes -> it's running
           wait-for: 10m
           log-output: false
