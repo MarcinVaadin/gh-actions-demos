@@ -28,6 +28,9 @@ jobs:
           echo "// test" >> src/main/java/org/vaadin/example/MainView.java
           sleep 5
           ls -la --time-style=full-iso target/classes/org/vaadin/example/MainView.class
+          echo "// test2" >> src/main/java/org/vaadin/example/MainView.java
+          sleep 5
+          ls -la --time-style=full-iso target/classes/org/vaadin/example/MainView.class
       - run: |
           kill `cat watcher.pid`
           cat watcher.log
