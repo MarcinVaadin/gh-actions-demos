@@ -23,11 +23,12 @@ jobs:
         run: mvn dependency:build-classpath -Dmdep.outputFile=deps.txt
       - run: |
           chmod +x scripts/watcher.sh
-          ./scripts/watcher.sh src/main/java watcher.log deps.txt
+          ./scripts/watcher.sh src/main/java deps.txt
           ls -la --time-style=full-iso target/classes/org/vaadin/example/MainView.class
           echo "// test" >> src/main/java/org/vaadin/example/MainView.java
           sleep 5
           ls -la --time-style=full-iso target/classes/org/vaadin/example/MainView.class
       - run: |
-          cat watcher.log
           kill `cat watcher.pid`
+          cat watcher.log
+          cat javac.log
