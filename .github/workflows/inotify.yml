@@ -13,6 +13,7 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get -y install inotify-tools
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4.2.1
       - name: Build
         run: mvn -ntp -V install
       - name: Save classpaths
