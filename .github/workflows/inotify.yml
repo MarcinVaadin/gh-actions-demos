@@ -16,13 +16,7 @@ jobs:
       - run: |
           chmod +x scripts/watcher.sh
           ./scripts/watcher.sh src/main/java watcher.log
-          sleep 1
-          touch src/main/java/test
-          cat watcher.log
-          touch src/main/java/test2
-          cat watcher.log
-          echo "asd" >> src/main/java/test
+          echo "// test" >> src/main/java/org/vaadin/example/MainView.java
+      - run: |
           cat watcher.log
           kill `cat watcher.pid`
-          echo "asd12" >> src/main/java/test
-          cat watcher.log
