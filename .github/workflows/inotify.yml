@@ -13,6 +13,8 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get -y install inotify-tools
       - uses: actions/checkout@v4
+      - run: chmod +x scripts/watcher.sh
+      - run: ./scripts/watcher.sh
       - name: Start inotify watcher
         uses: JarvusInnovations/background-action@v1
         with:
