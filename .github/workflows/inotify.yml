@@ -20,7 +20,7 @@ jobs:
       - name: Build
         run: mvn -ntp -V install
       - name: Save classpaths
-        run: mvn dependency:build-classpath -Dmdep.outputFile=deps.txt
+        run: mvn -ntp -V dependency:build-classpath -Dmdep.outputFile=deps.txt
       - run: |
           chmod +x scripts/watcher.sh
           ./scripts/watcher.sh src/main/java deps.txt
