@@ -21,10 +21,4 @@ jobs:
         with:
           chrome-version: stable
       - uses: nanasess/setup-chromedriver@master
-      - name: Run Chromedriver
-        run: |
-          export DISPLAY=:99
-          chromedriver --help
-          chromedriver --binary=${{ steps.setup-chrome.outputs.chrome-path }} --url-base=/wd/hub --no-sandbox --disable-extensions --headless --disable-gpu --disable-dev-shm-usage --window-size=1280,1024 &
-      - run: mvn -V -B -ntp -e -fae install
-      - run: mvn -V -B -ntp -e -fae verify
+      - run: mvn -V -B -ntp -e -fae install verify
