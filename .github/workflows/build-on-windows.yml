@@ -21,6 +21,6 @@ jobs:
         with:
           chrome-version: stable
       - uses: nanasess/setup-chromedriver@master
-      - run: mvn -V -B -ntp -e -fae verify -Pit,production
+      - run: mvn -V -B -ntp -e -fae -Pit verify
 
 
